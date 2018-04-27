@@ -10,11 +10,16 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.util.Log
 import android.view.ActionMode
+import android.view.Menu
+import android.view.MenuInflater
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationServices
 import com.example.pabloquiroga.gps_kotlin.R.*
 import com.google.android.gms.common.ConnectionResult
 import kotlinx.android.synthetic.main.activity_main.*
+import android.content.Intent
+import android.view.MenuItem
+
 
 class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     override fun onConnectionFailed(p0: ConnectionResult) {
@@ -52,8 +57,6 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks, G
             Log.e("no llego",""+location.toString())
         }
         //getData()
-
-
     }
 
     override fun onConnectionSuspended(p0: Int) {
@@ -73,5 +76,22 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks, G
     override fun onStart() {
         super.onStart()
         apiClient?.connect()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_update, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        val id = item.getItemId()
+
+        if (id == R.id.obtener) {
+            getData()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }
